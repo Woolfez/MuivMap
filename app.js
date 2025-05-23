@@ -1,6 +1,8 @@
 const WIDTH = 771;
 const HEIGHT = 539;
 const FLOOR_COUNT = 5;
+const SVG_VIEWBOX_WIDTH = 771;
+const SVG_VIEWBOX_HEIGHT = 539;
 
 const projection = new ol.proj.Projection({
     code: 'indoor',
