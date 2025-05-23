@@ -41,8 +41,9 @@ html, body {
 }
 
 .floor-btn.active {
-    background: #007bff;
+    background-color: #535889;
     color: white;
+    border-color: #43476d;
 }
 
 canvas.ol-layer {
