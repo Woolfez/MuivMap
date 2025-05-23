@@ -61,20 +61,18 @@ const switchFloor = (floorNumber) => {
 
 
 
-function fitMapToView() {
+const fitMapToView = () => {
     const view = map.getView();
-    const mapSize = map.getSize();
-    
-    if (!mapSize) return;
-    const mapWidth = mapSize[0];
-    const mapHeight = mapSize[1];
-    const widthRatio = width / mapWidth;
-    const heightRatio = height / mapHeight;
-    const resolution = Math.max(widthRatio, heightRatio) * 1.02;
+    const mapSize = map.getSize(); 
+
+    if (!mapSize || mapSize[0] <= 0 || mapSize[1] <= 0) return;
+    const xResolution = projection.getExtent()[2] / mapSize[0];
+    const yResolution = projection.getExtent()[3] / mapSize[1];
+    const resolution = Math.max(xResolution, yResolution) * 1.02;
     
     view.setResolution(resolution);
     view.setCenter(ol.extent.getCenter(projection.getExtent()));
-}
+};
 
 
 map.once('postrender', fitMapToView);
