@@ -1,5 +1,6 @@
-const width = 771;
-const height = 539;
+const WIDTH = 771;
+const HEIGHT = 539;
+const FLOOR_COUNT = 5;
 
 const projection = new ol.proj.Projection({
     code: 'indoor',
