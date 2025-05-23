@@ -8,14 +8,14 @@ const projection = new ol.proj.Projection({
 });
 ol.proj.addProjection(projection);
 
-const floorLayers = [1, 2, 3, 4, 5].map(floorNumber => {
+const floorLayers = Array.from({ length: FLOOR_COUNT }, (_, i) => i + 1).map(floorNumber => {
     return new ol.layer.Image({
-        visible: floorNumber === 1,
+        visible: floorNumber === currentFloor,
         source: new ol.source.ImageStatic({
-            url: `floor${floorNumber}.svg`,
+            url: `Floor${floorNumber}.svg`,
             imageExtent: projection.getExtent(),
             projection: projection,
-            imageSize: [width, height]
+            imageSize: [MAP_WIDTH, MAP_HEIGHT]
         }),
         properties: {
             floor: floorNumber
