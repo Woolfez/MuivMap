@@ -58,5 +58,6 @@ canvas.ol-layer {
 }
 
 .ol-layer {
-  image-rendering: crisp-edges !important;
+  image-rendering: crisp-edges;
+  image-rendering: optimizeQuality;
 }
