@@ -35,16 +35,30 @@ const map = new ol.Map({
     })
 });
 
-function switchFloor(floorNumber) {
+const switchFloor = (floorNumber) => {
+    if (currentFloor === floorNumber && map.getLayers().getArray().some(l => l === pathLayer)) {
+         if (pathLayer) pathLayer.changed();
+         return;
+     }
+
+    currentFloor = floorNumber;
     floorLayers.forEach(layer => {
-        layer.setVisible(layer.get('floor') === floorNumber);
+        layer.setVisible(layer.get('floor') === currentFloor);
     });
-    fitMapToView();
+
+    if (pathLayer) {
+        pathLayer.changed(); 
+    }
     
+    if (graphDebugLayer) {
+        graphDebugLayer.changed();
+    }
+
     document.querySelectorAll('.floor-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.floor === floorNumber.toString());
+        btn.classList.toggle('active', btn.dataset.floor === currentFloor.toString());
     });
-}
+};
+
 
 
 function fitMapToView() {
