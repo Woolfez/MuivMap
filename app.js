@@ -110,6 +110,29 @@ const parseSVG = (svgText, floorNumber) => {
     return parsedData;
 };
 
+const loadAllFloorData = async () => {
+    const promises = [];
+    for (let i = 1; i <= FLOOR_COUNT; i++) {
+        promises.push(
+            fetch(`Floor${i}.svg`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ошибка ${response.status} для Floor${i}.svg`);
+                    }
+                    return response.text();
+                })
+                .then(svgText => {
+                    floorData[i] = parseSVG(svgText, i);
+                })
+                .catch(error => console.error(`Ошибка загрузки этажа ${i}:`, error))
+        );
+    }
+    await Promise.all(promises);
+    console.log("Данные этажа загружены:", floorData);
+    populateRoomDropdowns();
+    buildGraph();
+};
+
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
