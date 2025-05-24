@@ -6,6 +6,8 @@ const SVG_VIEWBOX_HEIGHT = 539;
 
 let floorData = {};
 let graph = { nodes: [], edges: {} };
+let currentFloor = 1;
+let pathLayer = null;
 
 const projection = new ol.proj.Projection({
     code: 'indoor',
