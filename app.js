@@ -38,6 +38,12 @@ const calculateDistance = (p1, p2) => {
     return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 };
 
+const transformCoordinates = (svgX, svgY) => {
+    const mapX = svgX * (MAP_WIDTH / SVG_VIEWBOX_WIDTH);
+    const mapY = (SVG_VIEWBOX_HEIGHT - svgY) * (MAP_HEIGHT / SVG_VIEWBOX_HEIGHT);
+    return { x: mapX, y: mapY };
+};
+
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
@@ -127,69 +133,3 @@ document.querySelectorAll('.floor-btn').forEach(button => {
         switchFloor(floorNumber);
     });
 });
-
-const parseSVG = (svgText, floorNumber) => {
-    const parser = new DOMParser();
-    const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
-    const parsedData = { rooms: {}, doors: {}, pathNodes: [], stairs: [], toilets: [] };
-    svgDoc.querySelectorAll('g#pathdots circle').forEach((circle, index) => {
-        const svgX = parseFloat(circle.getAttribute('cx'));
-        const svgY = parseFloat(circle.getAttribute('cy'));
-        const id = circle.getAttribute('id') || `p${floorNumber}-${index}`;
-        const coords = transformCoordinates(svgX, svgY);
-
-        const nodeData = {
-            id: id,
-            svgId: circle.getAttribute('id'),
-            x: coords.x,
-            y: coords.y,
-            floor: floorNumber,
-            isStair: false,
-            isPathNode: true,
-        };
-
-        if (nodeData.svgId && nodeData.svgId.startsWith('stair-marker')) {
-            nodeData.isStair = true;
-            nodeData.isPathNode = false;
-            parsedData.stairs.push(nodeData);
-        } else {
-            parsedData.pathNodes.push(nodeData);
-        }
-    });
-
-    svgDoc.querySelectorAll('g#Doors line').forEach(line => {
-        const doorId = line.getAttribute('id');
-        const dataName = line.getAttribute('data-name');
-        if (!doorId || !dataName) return;
-
-        const x1 = parseFloat(line.getAttribute('x1'));
-        const y1 = parseFloat(line.getAttribute('y1'));
-        const x2 = parseFloat(line.getAttribute('x2'));
-        const y2 = parseFloat(line.getAttribute('y2'));
-
-        const midSvgX = (x1 + x2) / 2;
-        const midSvgY = (y1 + y2) / 2;
-        const midCoords = transformCoordinates(midSvgX, midSvgY);
-
-        const doorData = {
-            id: doorId,
-            dataName: dataName,
-            x: midCoords.x,
-            y: midCoords.y,
-            floor: floorNumber,
-        };
-        parsedData.doors[doorId] = doorData;
-        parsedData.rooms[doorId] = {
-            number: doorId,
-            dataName: dataName,
-            floor: floorNumber,
-            doorId: doorId, 
-            doorCoords: { x: midCoords.x, y: midCoords.y },
-        };
-        if (dataName === 'Туалет') {
-            parsedData.toilets.push(doorData);
-        }
-    });
-
-    return parsedData;
-};
