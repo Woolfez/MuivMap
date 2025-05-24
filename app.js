@@ -11,6 +11,29 @@ let pathLayer = null;
 let graphDebugLayer = null;
 let map = null;
 
+class SimplePriorityQueue {
+    constructor() {
+        this._nodes = [];
+    }
+
+    enqueue(priority, key) {
+        this._nodes.push({ key: key, priority: priority });
+        this.sort();
+    }
+
+    dequeue() {
+        return this._nodes.shift().key;
+    }
+
+    sort() {
+        this._nodes.sort((a, b) => a.priority - b.priority);
+    }
+
+    isEmpty() {
+        return !this._nodes.length;
+    }
+}
+
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
