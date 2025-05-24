@@ -8,6 +8,8 @@ let floorData = {};
 let graph = { nodes: [], edges: {} };
 let currentFloor = 1;
 let pathLayer = null;
+let graphDebugLayer = null;
+let map = null;
 
 const projection = new ol.proj.Projection({
     code: 'indoor',
