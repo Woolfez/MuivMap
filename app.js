@@ -4,6 +4,9 @@ const FLOOR_COUNT = 5;
 const SVG_VIEWBOX_WIDTH = 771;
 const SVG_VIEWBOX_HEIGHT = 539;
 
+let floorData = {};
+let graph = { nodes: [], edges: {} };
+
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
