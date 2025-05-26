@@ -387,6 +387,11 @@ const createPathSegments = (pathNodeGraphIds, startPoint, endPoint) => {
             currentSegment.push([node.x, node.y]);
         }
     });
+
+const arrowHeadStyle = new ol.style.Style({
+    fill: new ol.style.Fill({ color: PATH_COLOR }),
+    stroke: new ol.style.Stroke({ color: PATH_COLOR, width: 1 })
+});
     
 const projection = new ol.proj.Projection({
     code: 'indoor',
