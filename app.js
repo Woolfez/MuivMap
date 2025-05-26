@@ -392,6 +392,17 @@ const arrowHeadStyle = new ol.style.Style({
     fill: new ol.style.Fill({ color: PATH_COLOR }),
     stroke: new ol.style.Stroke({ color: PATH_COLOR, width: 1 })
 });
+
+const animatePath = () => {
+    const elapsed = Date.now();
+    currentDashOffset = -(elapsed / 1000 * ANIMATION_SPEED) % (DASH_PATTERN[0] + DASH_PATTERN[1]);
+    
+    if (pathLayer) {
+        pathLayer.changed(); 
+    }
+    
+    animationFrameId = requestAnimationFrame(animatePath);
+};    
     
 const projection = new ol.proj.Projection({
     code: 'indoor',
