@@ -346,7 +346,23 @@ const AStar = (startGraphId, endGraphId) => {
             }
         });
     }
-    
+
+const findNearestNode = (pointX, pointY, floor) => {
+    let nearestNode = null;
+    let minDistance = Infinity;
+
+    graph.nodes.forEach(node => {
+        if (node.floor === floor) {
+            const dist = calculateDistance({ x: pointX, y: pointY }, node);
+            if (dist < minDistance) {
+                minDistance = dist;
+                nearestNode = node;
+            }
+        }
+    });
+    return nearestNode;
+};
+
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
