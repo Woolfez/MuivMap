@@ -409,6 +409,14 @@ const startAnimation = () => {
         animatePath(); 
     }
 };
+
+const stopAnimation = () => {
+    if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+    }
+    currentDashOffset = 0;
+};
     
 const projection = new ol.proj.Projection({
     code: 'indoor',
