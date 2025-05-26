@@ -133,6 +133,115 @@ const loadAllFloorData = async () => {
     buildGraph();
 };
 
+const buildGraph = () => {
+    graph = { nodes: [], edges: {} };
+    if (graphDebugLayer) {
+        graphDebugLayer.getSource().clear();
+    }
+    let nodeIdCounter = 0;
+    const nodeMap = {};
+    for (let floor = 1; floor <= FLOOR_COUNT; floor++) {
+        if (!floorData[floor]) continue;
+
+        const addNodes = (nodesToAdd) => {
+            nodesToAdd.forEach(node => {
+                const graphNode = {
+                    graphId: nodeIdCounter,
+                    originalId: node.id,
+                    svgId: node.svgId,
+                    x: node.x,
+                    y: node.y,
+                    floor: node.floor,
+                    isStair: node.isStair,
+                };
+                graph.nodes.push(graphNode);
+                nodeMap[node.id] = graphNode.graphId;
+                graph.edges[graphNode.graphId] = []; 
+                if (graphDebugLayer) {
+                    const nodeFeature = new ol.Feature({
+                        geometry: new ol.geom.Point([node.x, node.y]),
+                        type: node.isStair ? 'stair' : 'node',
+                        floor: node.floor,
+                        originalId: node.originalId
+                    });
+                    graphDebugLayer.getSource().addFeature(nodeFeature);
+                }
+                
+                nodeIdCounter++;
+            });
+        };
+        addNodes(floorData[floor].pathNodes);
+        addNodes(floorData[floor].stairs);
+    }
+
+    const addedEdges = new Set();
+    graph.nodes.forEach(nodeA => {
+        graph.nodes.forEach(nodeB => {
+            if (nodeA.graphId === nodeB.graphId) return;
+
+            const dist = calculateDistance(nodeA, nodeB);
+
+            const edgeKey = nodeA.graphId < nodeB.graphId ? `${nodeA.graphId}-${nodeB.graphId}` : `${nodeB.graphId}-${nodeA.graphId}`;
+            if (nodeA.floor === nodeB.floor && dist < NODE_CONNECTION_THRESHOLD) {
+                if(!nodeA.isStair || !nodeB.isStair) {
+                     if (nodeA.isStair || nodeB.isStair) {
+                         console.log(`[Построение графа] соединяет ${nodeA.isStair ? 'STAIR' : 'PATH'} точка ${nodeA.originalId}(${nodeA.graphId}) этаж ${nodeA.floor} в ${nodeB.isStair ? 'STAIR' : 'PATH'} точка ${nodeB.originalId}(${nodeB.graphId}) этаж ${nodeB.floor} дистанция: ${dist.toFixed(2)}`);
+                     }
+                     graph.edges[nodeA.graphId].push({ neighborId: nodeB.graphId, weight: dist });
+                     graph.edges[nodeB.graphId].push({ neighborId: nodeA.graphId, weight: dist });
+                     if (graphDebugLayer && !addedEdges.has(edgeKey)) {
+                        const edgeFeature = new ol.Feature({
+                            geometry: new ol.geom.LineString([[nodeA.x, nodeA.y], [nodeB.x, nodeB.y]]),
+                            type: 'edge',
+                            floor: nodeA.floor
+                        });
+                        graphDebugLayer.getSource().addFeature(edgeFeature);
+                        addedEdges.add(edgeKey);
+                     }
+                 }
+            } 
+            if (nodeA.isStair && nodeB.isStair &&
+                Math.abs(nodeA.floor - nodeB.floor) === 1) {
+                 console.log(`[Построение графа - Проверка расстояние от лестницы] Сравнение лестниц: ${nodeA.originalId}(${nodeA.graphId}) этаж ${nodeA.floor} <-> ${nodeB.originalId}(${nodeB.graphId}) этаж ${nodeB.floor} дистанция: ${dist.toFixed(2)}`);
+                 if (dist < STAIR_PROXIMITY_THRESHOLD) { 
+                     console.log(`[Построение графа - Проверка расстояние соединения лестниц] Соединяющая лестница: ${nodeA.originalId}(${nodeA.graphId}) этаж ${nodeA.floor} в ${nodeB.originalId}(${nodeB.graphId}) этаж ${nodeB.floor}`);
+                     graph.edges[nodeA.graphId].push({ neighborId: nodeB.graphId, weight: FLOOR_CHANGE_COST });
+                     graph.edges[nodeB.graphId].push({ neighborId: nodeA.graphId, weight: FLOOR_CHANGE_COST });
+                     const lowerFloor = Math.min(nodeA.floor, nodeB.floor);
+                     if (graphDebugLayer && !addedEdges.has(edgeKey)) {
+                         const edgeFeature = new ol.Feature({
+                             geometry: new ol.geom.LineString([[nodeA.x, nodeA.y], [nodeB.x, nodeB.y]]),
+                             type: 'edge',
+                             floor: lowerFloor,
+                             isStairConnection: true
+                         });
+                         graphDebugLayer.getSource().addFeature(edgeFeature);
+                         addedEdges.add(edgeKey);
+                     }
+                 } 
+            }
+        });
+    });
+
+    for (const nodeId in graph.edges) {
+        const uniqueEdges = [];
+        const seenNeighbors = new Set();
+        graph.edges[nodeId].forEach(edge => {
+            if (!seenNeighbors.has(edge.neighborId)) {
+                uniqueEdges.push(edge);
+                seenNeighbors.add(edge.neighborId);
+            }
+        });
+        graph.edges[nodeId] = uniqueEdges;
+    }
+
+
+    console.log("Граф построен:", graph);
+    if (graphDebugLayer) {
+        console.log("Элементы графа извлечены:", graphDebugLayer.getSource().getFeatures().length);
+    }
+};
+
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
