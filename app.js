@@ -363,6 +363,31 @@ const findNearestNode = (pointX, pointY, floor) => {
     return nearestNode;
 };
 
+const createPathSegments = (pathNodeGraphIds, startPoint, endPoint) => {
+    if (!pathNodeGraphIds || pathNodeGraphIds.length === 0) {
+        return {};
+    }
+
+    const segments = {};
+    let currentSegment = [];
+    let currentSegmentFloor = -1;
+    currentSegment.push([startPoint.x, startPoint.y]);
+    currentSegmentFloor = startPoint.floor;
+
+    pathNodeGraphIds.forEach(graphId => {
+        const node = graph.nodes[graphId];
+        if (node.floor !== currentSegmentFloor) {
+            if (currentSegment.length > 0) {
+                 if (!segments[currentSegmentFloor]) segments[currentSegmentFloor] = [];
+                 segments[currentSegmentFloor].push(currentSegment);
+             }
+            currentSegment = [[node.x, node.y]];
+            currentSegmentFloor = node.floor;
+        } else {
+            currentSegment.push([node.x, node.y]);
+        }
+    });
+    
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
