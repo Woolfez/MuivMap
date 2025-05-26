@@ -242,6 +242,60 @@ const buildGraph = () => {
     }
 };
 
+const populateRoomDropdowns = () => {
+    const startSelect = document.getElementById('start-room');
+    const endSelect = document.getElementById('end-room');
+
+    startSelect.innerHTML = '<option value="">Выберите начальную точку</option>';
+    endSelect.innerHTML = '<option value="">Выберите конечную точку</option>';
+
+    let allRoomsForDropdown = [];
+    for (let floor = 1; floor <= FLOOR_COUNT; floor++) {
+        if (floorData[floor] && floorData[floor].rooms) {
+            Object.values(floorData[floor].rooms).forEach(room => {
+                allRoomsForDropdown.push({
+                    value: `${room.floor}-${room.number}`,
+                    text: `Этаж ${room.floor} ${room.dataName}`,
+                    floor: room.floor,
+                    number: room.number,
+                    dataName: room.dataName
+                });
+            });
+        }
+    }
+
+    const excludedDataNames = ['Туалет'];
+    allRoomsForDropdown = allRoomsForDropdown.filter(room => {
+        return !excludedDataNames.some(prefix => room.dataName.startsWith(prefix));
+    });
+
+    allRoomsForDropdown.sort((a, b) => {
+        if (a.floor !== b.floor) {
+            return a.floor - b.floor;
+        }
+        const numA = parseInt(a.dataName);
+        const numB = parseInt(b.dataName);
+        if (!isNaN(numA) && !isNaN(numB)) {
+            return numA - numB;
+        }
+        return a.dataName.localeCompare(b.dataName);
+    });
+
+    allRoomsForDropdown.forEach(room => {
+        const option = document.createElement('option');
+        option.value = room.value;
+        option.textContent = room.text;
+        startSelect.appendChild(option.cloneNode(true));
+        endSelect.appendChild(option);
+    });
+
+    const nearestToiletOption = document.createElement('option');
+    nearestToiletOption.value = "find-nearest-toilet";
+    nearestToiletOption.textContent = "Ближайший туалет";
+    endSelect.appendChild(nearestToiletOption);
+
+};
+
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
