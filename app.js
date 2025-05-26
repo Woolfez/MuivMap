@@ -403,6 +403,12 @@ const animatePath = () => {
     
     animationFrameId = requestAnimationFrame(animatePath);
 };    
+
+const startAnimation = () => {
+    if (animationFrameId === null) { 
+        animatePath(); 
+    }
+};
     
 const projection = new ol.proj.Projection({
     code: 'indoor',
