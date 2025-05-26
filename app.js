@@ -296,6 +296,57 @@ const populateRoomDropdowns = () => {
 
 };
 
+const AStar = (startGraphId, endGraphId) => {
+    const frontier = new SimplePriorityQueue();
+    frontier.enqueue(0, startGraphId);
+    const cameFrom = { [startGraphId]: null };
+    const costSoFar = { [startGraphId]: 0 };
+
+    const endNode = graph.nodes[endGraphId];
+    if (!endNode) {
+        console.error(`[A* ошибка] Конечная точка ${endGraphId} не найдена.`);
+        return null;
+    }
+
+    let foundPath = false;
+    while (!frontier.isEmpty()) {
+        const currentGraphId = frontier.dequeue();
+
+        if (currentGraphId === endGraphId) {
+            foundPath = true;
+            break;
+        }
+
+        const currentNode = graph.nodes[currentGraphId];
+        if (!currentNode) {
+            console.warn(`[A* ошибка] Текущая точка ${currentGraphId} не найдена.`);
+            continue; 
+        }
+        const neighbors = graph.edges[currentGraphId] || [];
+
+        neighbors.forEach(edge => {
+            const neighborGraphId = edge.neighborId;
+            const neighborNode = graph.nodes[neighborGraphId];
+            if (!neighborNode) {
+                 console.warn(`[A* ошибка] Соседняя точка ${neighborGraphId} не найдена.`);
+                 return;
+            }
+
+            const newCost = costSoFar[currentGraphId] + edge.weight;
+
+            if (!(neighborGraphId in costSoFar) || newCost < costSoFar[neighborGraphId]) {
+                costSoFar[neighborGraphId] = newCost;
+                const spatialHeuristic = calculateDistance(neighborNode, endNode);
+                const floorDifference = Math.abs(neighborNode.floor - endNode.floor);
+                const floorPenalty = floorDifference * FLOOR_CHANGE_COST;
+                const heuristic = spatialHeuristic + floorPenalty;
+                const priority = newCost + heuristic;
+                frontier.enqueue(priority, neighborGraphId);
+                cameFrom[neighborGraphId] = currentGraphId;
+            }
+        });
+    }
+    
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
