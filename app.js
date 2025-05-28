@@ -482,6 +482,53 @@ const createArrowheadFeature = (lineCoords, floor) => {
     return arrowhead;
 };
 
+const drawPath = (pathSegments, startFloor, endFloor) => {
+    if (!pathLayer) {
+        initializePathLayer();
+    }
+    pathLayer.getSource().clear(); 
+    stopAnimation(); 
+
+    const features = [];
+    let arrowAdded = false; 
+
+    const finalFloor = endFloor;
+
+    for (const floor in pathSegments) {
+        const coords = pathSegments[floor];
+        const currentSegmentFloor = parseInt(floor);
+
+        if (coords.length >= 2) { 
+            const lineFeature = new ol.Feature({
+                geometry: new ol.geom.LineString(coords),
+                type: 'path-segment'
+            });
+            lineFeature.set('floor', currentSegmentFloor); 
+            features.push(lineFeature);
+            if (currentSegmentFloor === finalFloor && !arrowAdded) {
+                const arrowheadFeature = createArrowheadFeature(coords, currentSegmentFloor);
+                if (arrowheadFeature) {
+                    features.push(arrowheadFeature);
+                    arrowAdded = true;
+                }
+            }
+        }
+    }
+
+    if (features.length > 0) {
+        pathLayer.getSource().addFeatures(features);
+        startAnimation();
+    }
+
+    switchFloorWithAnimation(startFloor); 
+    if (startFloor !== endFloor) {
+        const delayForSecondSwitch = FLOOR_SWITCH_DELAY + ANIMATION_DURATION;
+        setTimeout(() => {
+            switchFloorWithAnimation(endFloor);
+        }, delayForSecondSwitch);
+    }
+};
+
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
