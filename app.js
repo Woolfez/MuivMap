@@ -623,6 +623,13 @@ const fitMapToView = () => {
     view.setCenter(ol.extent.getCenter(projection.getExtent()));
 };
 
+document.querySelectorAll('.floor-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const floorNumber = parseInt(button.dataset.floor);
+        switchFloorWithAnimation(floorNumber); 
+    });
+});
+
 
 map.once('postrender', fitMapToView);
 
