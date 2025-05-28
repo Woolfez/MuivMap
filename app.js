@@ -551,17 +551,22 @@ const floorLayers = Array.from({ length: FLOOR_COUNT }, (_, i) => i + 1).map(flo
     });
 });
 
-const map = new ol.Map({
-    target: 'map',
-    layers: floorLayers,
+map = new ol.Map({
+    target: 'map-layers-container',
+    layers: [
+        ...floorLayers,
+    ],
     view: new ol.View({
         projection: projection,
         center: ol.extent.getCenter(projection.getExtent()),
         zoom: 0, 
-        minResolution: 0.2, 
-        maxResolution: 2 
+        resolution: Math.max(MAP_WIDTH / window.innerWidth, MAP_HEIGHT / window.innerHeight) * 1.05,
+        minResolution: 0.1, 
+        maxResolution: 5 
     })
 });
+initializePathLayer(); 
+initializeGraphDebugLayer();
 
 const switchFloor = (floorNumber) => {
     if (currentFloor === floorNumber && map.getLayers().getArray().some(l => l === pathLayer)) {
