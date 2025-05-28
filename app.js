@@ -632,6 +632,10 @@ document.querySelectorAll('.floor-btn').forEach(button => {
 
 
 map.once('postrender', fitMapToView);
+window.addEventListener('resize', () => {
+    map.updateSize();
+    fitMapToView();
+});
 
 
 window.addEventListener('resize', () => {
