@@ -532,7 +532,7 @@ const drawPath = (pathSegments, startFloor, endFloor) => {
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
-    extent: [0, 0, width, height]
+    extent: [0, 0, MAP_WIDTH, MAP_HEIGHT]
 });
 ol.proj.addProjection(projection);
 
