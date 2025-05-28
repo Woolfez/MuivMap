@@ -417,6 +417,29 @@ const stopAnimation = () => {
     }
     currentDashOffset = 0;
 };
+
+const animatedPathStyleFunction = (feature) => {
+    if (feature.get('floor') !== currentFloor) {
+        return null;
+    }
+
+    const type = feature.get('type');
+    const geometry = feature.getGeometry();
+
+    if (type === 'path-segment' && geometry instanceof ol.geom.LineString) {
+        const animatedStroke = new ol.style.Stroke({
+            color: PATH_COLOR,
+            width: PATH_WIDTH,
+            lineDash: DASH_PATTERN,
+            lineDashOffset: currentDashOffset
+        });
+        return new ol.style.Style({ stroke: animatedStroke });
+    } else if (type === 'arrowhead' && geometry instanceof ol.geom.Polygon) {
+        return arrowHeadStyle;
+    }
+    
+    return null; 
+};  
     
 const projection = new ol.proj.Projection({
     code: 'indoor',
