@@ -638,11 +638,3 @@ window.addEventListener('resize', () => {
     map.updateSize();
     fitMapToView();
 });
-
-
-document.querySelectorAll('.floor-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        const floorNumber = parseInt(button.dataset.floor);
-        switchFloor(floorNumber);
-    });
-});
