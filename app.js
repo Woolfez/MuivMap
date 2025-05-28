@@ -592,6 +592,22 @@ const switchFloor = (floorNumber) => {
     });
 };
 
+const switchFloorWithAnimation = (floorNumber) => {
+    if (floorNumber === currentFloor) {
+        switchFloor(floorNumber); 
+        return;
+    }
+
+    const mapLayersContainerElement = document.getElementById('map-layers-container');
+    if (!mapLayersContainerElement) return;
+
+    mapLayersContainerElement.classList.add('fade-out');
+
+    setTimeout(() => {
+        switchFloor(floorNumber);
+        mapLayersContainerElement.classList.remove('fade-out'); 
+    }, ANIMATION_DURATION);
+};
 
 
 const fitMapToView = () => {
