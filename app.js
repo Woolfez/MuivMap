@@ -440,6 +440,15 @@ const animatedPathStyleFunction = (feature) => {
     
     return null; 
 };  
+
+const initializePathLayer = () => {
+    pathLayer = new ol.layer.Vector({
+        source: new ol.source.Vector(),
+        style: animatedPathStyleFunction, 
+        zIndex: 5 
+    });
+    map.addLayer(pathLayer);
+};
     
 const projection = new ol.proj.Projection({
     code: 'indoor',
