@@ -449,7 +449,39 @@ const initializePathLayer = () => {
     });
     map.addLayer(pathLayer);
 };
-    
+
+const createArrowheadFeature = (lineCoords, floor) => {
+    if (!lineCoords || lineCoords.length < 2) {
+        return null;
+    }
+    const start = lineCoords[lineCoords.length - 2]; 
+    const end = lineCoords[lineCoords.length - 1];   
+
+    const dx = end[0] - start[0];
+    const dy = end[1] - start[1];
+    const rotation = Math.atan2(dy, dx);
+
+    const coords = [
+        end,
+        [
+            end[0] - ARROW_HEAD_SIZE * Math.cos(rotation - Math.PI / 6),
+            end[1] - ARROW_HEAD_SIZE * Math.sin(rotation - Math.PI / 6)
+        ],
+        [
+            end[0] - ARROW_HEAD_SIZE * Math.cos(rotation + Math.PI / 6),
+            end[1] - ARROW_HEAD_SIZE * Math.sin(rotation + Math.PI / 6)
+        ],
+        end 
+    ];
+
+    const arrowhead = new ol.Feature({
+        geometry: new ol.geom.Polygon([coords]),
+        type: 'arrowhead', 
+        floor: floor
+    });
+    return arrowhead;
+};
+
 const projection = new ol.proj.Projection({
     code: 'indoor',
     units: 'pixels',
