@@ -1,8 +1,18 @@
-const WIDTH = 771;
-const HEIGHT = 539;
-const FLOOR_COUNT = 5;
+const MAP_WIDTH = 842;
+const MAP_HEIGHT = 595;
 const SVG_VIEWBOX_WIDTH = 771;
 const SVG_VIEWBOX_HEIGHT = 539;
+const FLOOR_COUNT = 5;
+const PATH_COLOR = '#d16b6b';
+const PATH_WIDTH = 4; 
+const ARROW_HEAD_SIZE = 10;
+const DASH_PATTERN = [10, 10];
+const ANIMATION_SPEED = 50;
+const NODE_CONNECTION_THRESHOLD = 40;
+const STAIR_PROXIMITY_THRESHOLD = 30;
+const FLOOR_CHANGE_COST = 1000;
+const FLOOR_SWITCH_DELAY = 2000;
+const ANIMATION_DURATION = 300; 
 
 let floorData = {};
 let graph = { nodes: [], edges: {} };
@@ -10,6 +20,55 @@ let currentFloor = 1;
 let pathLayer = null;
 let graphDebugLayer = null;
 let map = null;
+let animationFrameId = null;
+let currentDashOffset = 0;
+
+const debugNodeStyle = new ol.style.Style({
+    image: new ol.style.Circle({
+        radius: 3,
+        fill: new ol.style.Fill({ color: 'rgba(255, 0, 0, 0.6)' }),
+        stroke: new ol.style.Stroke({ color: '#ff0000', width: 1 })
+    })
+});
+
+const debugStairNodeStyle = new ol.style.Style({
+    image: new ol.style.Circle({
+        radius: 4,
+        fill: new ol.style.Fill({ color: 'rgba(0, 0, 255, 0.6)' }),
+        stroke: new ol.style.Stroke({ color: '#0000ff', width: 1 })
+    })
+});
+
+const debugEdgeStyle = new ol.style.Style({
+    stroke: new ol.style.Stroke({
+        color: 'rgba(0, 255, 0, 0.5)',
+    })
+});
+
+const debugStyleFunction = (feature) => {
+    if (feature.get('floor') !== currentFloor) {
+        return null;
+    }
+    const type = feature.get('type');
+    if (type === 'node') {
+        return debugNodeStyle;
+    } else if (type === 'stair') {
+        return debugStairNodeStyle;
+    } else if (type === 'edge') {
+        return debugEdgeStyle;
+    }
+    return null;
+};
+
+const initializeGraphDebugLayer = () => {
+    graphDebugLayer = new ol.layer.Vector({
+        source: new ol.source.Vector(),
+        style: debugStyleFunction,
+        zIndex: 6,
+        visible: false
+    });
+    map.addLayer(graphDebugLayer);
+};
 
 class SimplePriorityQueue {
     constructor() {
@@ -347,6 +406,25 @@ const AStar = (startGraphId, endGraphId) => {
         });
     }
 
+    if (!foundPath || !(endGraphId in cameFrom)) {
+         console.log(`[A* ошибка] Путь не найден ${startGraphId} до ${endGraphId}`);
+         return null; 
+     }
+
+    const path = [];
+    let current = endGraphId;
+    while (current !== null) {
+        path.push(current);
+        if (!(current in cameFrom)) break;
+        current = cameFrom[current];
+    }
+    
+    return {
+        path: path.reverse(),
+        cost: costSoFar[endGraphId]
+    };
+};
+
 const findNearestNode = (pointX, pointY, floor) => {
     let nearestNode = null;
     let minDistance = Infinity;
@@ -388,6 +466,32 @@ const createPathSegments = (pathNodeGraphIds, startPoint, endPoint) => {
         }
     });
 
+    const lastGraphNode = graph.nodes[pathNodeGraphIds[pathNodeGraphIds.length - 1]];
+     if (endPoint.floor !== currentSegmentFloor) {
+         if (currentSegment.length > 0) {
+             if (!segments[currentSegmentFloor]) segments[currentSegmentFloor] = [];
+             segments[currentSegmentFloor].push(currentSegment);
+         }
+         currentSegment = [[lastGraphNode.x, lastGraphNode.y], [endPoint.x, endPoint.y]];
+         currentSegmentFloor = endPoint.floor;
+
+     } else {
+         currentSegment.push([endPoint.x, endPoint.y]);
+     }
+
+    if (currentSegment.length > 0) {
+         if (!segments[currentSegmentFloor]) segments[currentSegmentFloor] = [];
+         segments[currentSegmentFloor].push(currentSegment);
+    }
+     const finalSegments = {};
+     for (const floor in segments) {
+         finalSegments[floor] = segments[floor].flat();
+     }
+
+
+    return finalSegments;
+};
+
 const arrowHeadStyle = new ol.style.Style({
     fill: new ol.style.Fill({ color: PATH_COLOR }),
     stroke: new ol.style.Stroke({ color: PATH_COLOR, width: 1 })
@@ -402,7 +506,7 @@ const animatePath = () => {
     }
     
     animationFrameId = requestAnimationFrame(animatePath);
-};    
+};
 
 const startAnimation = () => {
     if (animationFrameId === null) { 
@@ -439,7 +543,7 @@ const animatedPathStyleFunction = (feature) => {
     }
     
     return null; 
-};  
+};
 
 const initializePathLayer = () => {
     pathLayer = new ol.layer.Vector({
@@ -592,6 +696,7 @@ const switchFloor = (floorNumber) => {
     });
 };
 
+
 const switchFloorWithAnimation = (floorNumber) => {
     if (floorNumber === currentFloor) {
         switchFloor(floorNumber); 
@@ -630,6 +735,161 @@ document.querySelectorAll('.floor-btn').forEach(button => {
     });
 });
 
+const handleFindPath = () => {
+    const startValue = document.getElementById('start-room').value; 
+    const endValue = document.getElementById('end-room').value;     
+
+    if (!startValue) { 
+        alert("Пожалуйста, выберите начальную точку.");
+        if(pathLayer) pathLayer.getSource().clear();
+        stopAnimation(); 
+        return;
+    }
+    if (!endValue) {
+        alert("Пожалуйста, выберите конечную точку.");
+        if(pathLayer) pathLayer.getSource().clear();
+        stopAnimation();
+        return;
+    }
+    if (endValue !== "find-nearest-toilet" && startValue === endValue) {
+         alert("Пожалуйста, выберите разные точки.");
+         if(pathLayer) pathLayer.getSource().clear();
+         stopAnimation(); 
+         return;
+     }
+
+    const [startFloorNumStr, startRoomId] = startValue.split('-');
+    const startFloorNum = parseInt(startFloorNumStr);
+    const startRoom = floorData[startFloorNum]?.rooms?.[startRoomId];
+
+    if (!startRoom || !startRoom.doorCoords) {
+        console.error("Начальная точка не найдена:", startValue);
+        if(pathLayer) pathLayer.getSource().clear();
+        stopAnimation(); 
+        return;
+    }
+
+    const startNode = findNearestNode(startRoom.doorCoords.x, startRoom.doorCoords.y, startRoom.floor);
+    if (!startNode) {
+        console.error(`[Поиск пути] Точка графа рядом с начальной точкой не найдена  ${startValue}`);
+        if(pathLayer) pathLayer.getSource().clear();
+        stopAnimation(); 
+        return;
+    }
+
+    let endRoom = null;
+    let endNode = null;
+    let pathResult = null;
+
+    if (endValue === "find-nearest-toilet") {
+        console.log("[Поиск пути] Поиск ближайшего туалета");
+        let shortestPathInfo = { result: null, endRoom: null, endNode: null };
+
+        for (let floor = 1; floor <= FLOOR_COUNT; floor++) {
+            if (!floorData[floor] || !floorData[floor].toilets) continue;
+
+            floorData[floor].toilets.forEach(toiletDoorData => {
+                const targetToiletNode = findNearestNode(toiletDoorData.x, toiletDoorData.y, toiletDoorData.floor);
+                if (targetToiletNode) {
+                    console.log(`[Поиск пути] Проверка пути до ближайшего туалета ${toiletDoorData.id} (Этаж ${toiletDoorData.floor}), ближайшая точка ${targetToiletNode.originalId}(${targetToiletNode.graphId})`);
+                    const currentPathResult = AStar(startNode.graphId, targetToiletNode.graphId);
+                    
+                    if (currentPathResult !== null) {
+                        console.log(`[Поиск пути] Путь найден стоимость: ${currentPathResult.cost}`);
+                        if (shortestPathInfo.result === null || currentPathResult.cost < shortestPathInfo.result.cost) {
+                             console.log(`[Поиск пути] Найден новый ближайший путь`);
+                            shortestPathInfo = {
+                                result: currentPathResult,
+                                endRoom: floorData[floor].rooms[toiletDoorData.id],
+                                endNode: targetToiletNode
+                            };
+                        }
+                    } else {
+                         console.log(`[Поиск пути] Путь до туалете не найден`);
+                     }
+                } else {
+                    console.warn(`[Поиск пути] Ближайшая точка на графе до туалета не найдена ${toiletDoorData.id} (Этаж ${toiletDoorData.floor})`);
+                }
+            });
+        }
+
+        if (shortestPathInfo.result === null) {
+            alert("Путь до туалета не найден.");
+            if(pathLayer) pathLayer.getSource().clear();
+            stopAnimation(); 
+            return;
+        }
+
+        pathResult = shortestPathInfo.result;
+        endRoom = shortestPathInfo.endRoom;
+        endNode = shortestPathInfo.endNode;
+        console.log(`[Поиск пути] Ближайший путь до туалета ${endRoom.dataName} (Номер: ${endRoom.number}, этаж: ${endRoom.floor}) стоимость: ${pathResult.cost}`);
+
+    } else {
+        const [endFloorNumStr, endRoomId] = endValue.split('-');
+        const endFloorNum = parseInt(endFloorNumStr);
+        endRoom = floorData[endFloorNum]?.rooms?.[endRoomId];
+
+        if (!endRoom || !endRoom.doorCoords) {
+            console.error("Данные о конечной точке не найдены:", endValue);
+            if(pathLayer) pathLayer.getSource().clear();
+            stopAnimation(); 
+            return;
+        }
+
+        endNode = findNearestNode(endRoom.doorCoords.x, endRoom.doorCoords.y, endRoom.floor);
+        if (!endNode) {
+            console.error(`[Поиск пути] Ближайшая точка на графе до конечной точки не найдена${endValue}`);
+             if(pathLayer) pathLayer.getSource().clear();
+            stopAnimation();
+            return;
+        }
+
+        console.log(`[Поиск пути] A* от ${startNode.originalId}(${startNode.graphId}) до ${endNode.originalId}(${endNode.graphId})`);
+        pathResult = AStar(startNode.graphId, endNode.graphId);
+
+        if (!pathResult) {
+            alert("Путь не найден.");
+            if(pathLayer) pathLayer.getSource().clear();
+            stopAnimation();
+            return;
+        }
+    }
+
+    if (!pathResult || !pathResult.path || !endRoom || !endNode) {
+         console.error("[Поиск пути] Недостаточно данных для построения пути.", { pathResult, endRoom, endNode });
+         if(pathLayer) pathLayer.getSource().clear();
+         stopAnimation(); 
+         return;
+    }
+
+    const pathNodeGraphIds = pathResult.path;
+    const startPoint = { x: startRoom.doorCoords.x, y: startRoom.doorCoords.y, floor: startRoom.floor };
+    const endPoint = { x: endRoom.doorCoords.x, y: endRoom.doorCoords.y, floor: endRoom.floor };
+
+     console.log(`[Поиск пути] Начало: ${startValue} -> Точка ${startNode.originalId}(${startNode.graphId})`);
+     console.log(`[Поиск пути] Конец: ${endRoom.dataName}(${endRoom.number}) F${endRoom.floor} -> Точка ${endNode.originalId}(${endNode.graphId})`); 
+
+    const pathSegments = createPathSegments(pathNodeGraphIds, startPoint, endPoint);
+    drawPath(pathSegments, startRoom.floor, endRoom.floor);
+};
+
+document.getElementById('find-path-btn').addEventListener('click', handleFindPath);
+
+document.getElementById('clear-path-btn').addEventListener('click', () => {
+    if (pathLayer) {
+        pathLayer.getSource().clear();
+    }
+    stopAnimation(); 
+
+    const startSelect = document.getElementById('start-room');
+    const endSelect = document.getElementById('end-room');
+    startSelect.selectedIndex = 0; 
+    endSelect.selectedIndex = 0;   
+
+    console.log("[Очистка пути] Путь очищен.");
+});
+
 
 map.once('postrender', fitMapToView);
 window.addEventListener('resize', () => {
@@ -637,5 +897,5 @@ window.addEventListener('resize', () => {
     fitMapToView();
 });
 
-loadAllFloorData(); 
 
+loadAllFloorData(); 
