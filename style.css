@@ -1,35 +1,55 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #1b2233;
+    color: #ffffff;
+    overflow: hidden; 
 }
 
 #map {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #bcbec0;
+    flex-grow: 1;
+    position: relative;
 }
 
-.ol-viewport {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.floor-controls {
+#map-layers-container {
     position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    overflow: hidden; 
+}
+
+#map-layers-container.fade-out {
+    opacity: 0;
+}
+
+.controls-container {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 12px;
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 5px;
-    border-radius: 5px;
+    display: flex;
+    gap: 20px;
+}
+
+.floor-controls, .routing-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .floor-btn, .find-path-button {
@@ -43,6 +63,10 @@ html, body {
     transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
+.floor-btn:hover, .find-path-button:hover {
+    background-color: #f8f9fa;
+    border-color: #535889;
+}
 
 .floor-btn.active {
     background-color: #535889;
@@ -50,18 +74,92 @@ html, body {
     border-color: #43476d;
 }
 
-canvas.ol-layer {
-  image-rendering: crisp-edges; /* Firefox */
-  image-rendering: pixelated;   /* Chrome */
+.routing-controls label {
+    font-size: 0.9em;
+    margin-bottom: 3px;
+    color: #535889;
+    font-weight: 500;
 }
 
-#map canvas {
-  image-rendering: optimizeQuality; /* Fallback */
+.select-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.room-select {
+    padding: 7px;
+    border: 1px solid #bcbec0;
+    border-radius: 4px;
+    min-width: 160px;
+    color: #535889;
+    background-color: #fff;
+}
+
+.find-path-button {
+    margin-top: 8px;
+    background-color: #d16b6b;
+    color: white;
+    border-color: #b35050;
+    font-weight: bold;
+}
+
+.find-path-button:hover {
+    background-color: #c05c5c;
+    border-color: #a34848;
+}
+
+.clear-path-button {
+    padding: 9px 14px;
+    border: 1px solid #bcbec0;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.clear-path-button:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+#map-logo {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 150px;
+    height: auto;
+    z-index: 1001;
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+.ol-popup {
+    background-color: white;
+    padding: 5px;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.route-path {
+    stroke: #535889;
+    stroke-width: 4;
+}
+
+canvas.ol-layer, #map canvas, .ol-layer {
+  image-rendering: optimizeQuality;
+  image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
   image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
 }
 
-.ol-layer {
-  image-rendering: crisp-edges;
-  image-rendering: optimizeQuality;
+.ol-zoom {
+    top: auto;
+    right: auto;
+    bottom: 15px;
+    left: 15px;
 }
