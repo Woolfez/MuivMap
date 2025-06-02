@@ -637,8 +637,5 @@ window.addEventListener('resize', () => {
     fitMapToView();
 });
 
+loadAllFloorData(); 
 
-window.addEventListener('resize', () => {
-    map.updateSize();
-    fitMapToView();
-});
