@@ -4,20 +4,17 @@
   <defs>
     <style>
       .cls-1 {
-        stroke: #323232;
+        fill: none;
+        stroke: #bcbec0;
+        stroke-miterlimit: 10;
         stroke-width: 5.67px;
       }
 
-      .cls-1, .cls-2 {
-        fill: none;
-        stroke-miterlimit: 10;
-      }
-
-      .cls-3 {
+      .cls-2 {
         letter-spacing: -.03em;
       }
 
-      .cls-4 {
+      .cls-3 {
         fill: #fff;
         font-family: FranklinGothic-Medium, 'Franklin Gothic Medium';
         font-size: 18.4px;
@@ -25,28 +22,32 @@
         isolation: isolate;
       }
 
-      .cls-5 {
+      .cls-4 {
         fill: #808285;
       }
 
-      .cls-5, .cls-6, .cls-7, .cls-8 {
+      .cls-4, .cls-5, .cls-6, .cls-7 {
         stroke-width: 0px;
       }
 
-      .cls-9 {
+      .cls-8 {
         letter-spacing: -.03em;
       }
 
-      .cls-10 {
+      .cls-9 {
         letter-spacing: .01em;
       }
 
-      .cls-11 {
+      .cls-10 {
         letter-spacing: -.06em;
       }
 
-      .cls-12 {
+      .cls-11 {
         letter-spacing: -.02em;
+      }
+
+      .cls-12 {
+        letter-spacing: 0em;
       }
 
       .cls-13 {
@@ -54,358 +55,336 @@
       }
 
       .cls-14 {
-        letter-spacing: 0em;
-      }
-
-      .cls-15 {
         letter-spacing: -.02em;
       }
 
+      .cls-15 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-5 {
+        fill: #bcbec0;
+      }
+
       .cls-16 {
+        letter-spacing: 0em;
+      }
+
+      .cls-17 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-18 {
+        letter-spacing: 0em;
+      }
+
+      .cls-19 {
         letter-spacing: -.03em;
       }
 
       .cls-6 {
-        fill: #bcbec0;
-      }
-
-      .cls-17 {
-        letter-spacing: 0em;
-      }
-
-      .cls-2 {
-        stroke: #000;
-        stroke-width: 5.67px;
-      }
-
-      .cls-18 {
-        letter-spacing: -.01em;
-      }
-
-      .cls-19 {
-        letter-spacing: 0em;
-      }
-
-      .cls-20 {
-        letter-spacing: -.03em;
-      }
-
-      .cls-7 {
         fill: #535889;
       }
 
-      .cls-8 {
+      .cls-7 {
         fill: #d16b6b;
       }
     </style>
+    <image id="image" width="600" height="600" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAJYCAYAAAC+ZpjcAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAE7mlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgOS4wLWMwMDEgNzkuYzAyMDRiMiwgMjAyMy8wMi8wOS0wNjoyNjoxNCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDI0LjUgKFdpbmRvd3MpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAyNC0wNS0xOVQxNjowMDoxNSswMzowMCIgeG1wOk1vZGlmeURhdGU9IjIwMjQtMDUtMTlUMTY6MDA6NTcrMDM6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjQtMDUtMTlUMTY6MDA6NTcrMDM6MDAiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjAwMWJkODRlLWQ2YjAtMTE0YS1hY2VmLTM0YWUyODBjY2Y3MSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowMDFiZDg0ZS1kNmIwLTExNGEtYWNlZi0zNGFlMjgwY2NmNzEiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMDFiZDg0ZS1kNmIwLTExNGEtYWNlZi0zNGFlMjgwY2NmNzEiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjAwMWJkODRlLWQ2YjAtMTE0YS1hY2VmLTM0YWUyODBjY2Y3MSIgc3RFdnQ6d2hlbj0iMjAyNC0wNS0xOVQxNjowMDoxNSswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDI0LjUgKFdpbmRvd3MpIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgqNGiMAAAubSURBVHic7dmxjVxlFIbhs+gWQEgIogkCkF0KEoXgEDJKgIgWINsSTEbowIFDCrA0JKy0khFi4NWe2Znnif7wS6706p670+k0AAB0PtoeAABwbQQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxI7tAQAQ+XlmPtkewU37cWZ+mhFYAFyPL2bm0+0R3LT7h4cTIQBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBATGABAMQEFgBA7NgeAAD8o19m5t32CP6V1w8PgQUAl+37mbnfHsF5nAgBAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGLH9gCAC/VyZl5sj+AsH28PgAcCC+DvvZiZV9sjgOfJiRAAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABix/YAAJ7UdzPz6/YIzvJ6ewDnE1gAt+X3mbnfHgHXzokQACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACB2bA+AG/Ht9gDO9nJ7APB8CSx4Gq+2BwDwdJwIAQBiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABiAgsAICawAABix/YA4Fn7Y2Z+WN7AeX7bHgC34O50Om1vgFtwrR/am5n5bHsEwKVxIgQAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAICYwAIAiAksAIDYsT2A/+zLmfl8ewQA8CGB9Xx9MzNfb48AAD7kRAgAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAAAxgQUAEBNYAACxY3sAPPJ2Zr7aHsFZ3m8PALhEAotL8n5m3myPAID/y4kQACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACAmsAAAYgILACB2PHqf1lYAAFwRf7AAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgJrAAAGICCwAgdjx632+NgL+82x4AAIW70+m0vQEA4Ko4EQIAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEBMYAEAxAQWAEDsT0CvJuGtItpvAAAAAElFTkSuQmCC"/>
+    <image id="image-2" width="200" height="200" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAACXBIWXMAAAsTAAALEwEAmpwYAAAE7mlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgOS4wLWMwMDEgNzkuYzAyMDRiMiwgMjAyMy8wMi8wOS0wNjoyNjoxNCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDI0LjUgKFdpbmRvd3MpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAyNC0wNS0xOFQxOTo0NDowOSswMzowMCIgeG1wOk1vZGlmeURhdGU9IjIwMjQtMDUtMTlUMTU6NTE6MzcrMDM6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjQtMDUtMTlUMTU6NTE6MzcrMDM6MDAiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjdjMjdjZGViLWUzNmYtYjU0Yy1hMGM0LWRlMGJjZTBmMTBiMyIgeG1wTU06RG9jdW1lbnRJRD0i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"/>
   </defs>
   <g id="Background">
-    <rect class="cls-6" x="2.83" y="3.07" width="150.2" height="535.8"/>
-    <rect class="cls-6" x="564.09" y="2.84" width="203.25" height="476.17"/>
-    <polygon class="cls-6" points="365.67 3.07 566.93 3.07 563.85 297.48 362.58 297.48 365.67 3.07"/>
-    <rect class="cls-6" x="362.83" y="3.07" width="85" height="294.8"/>
-    <rect class="cls-6" x="147.43" y="5.87" width="221.1" height="243.8"/>
+    <rect class="cls-5" x="2.83" y="2.84" width="150.2" height="536.03"/>
+    <rect class="cls-5" x="564.09" y="2.84" width="203.25" height="476.17"/>
+    <polygon class="cls-5" points="365.67 2.84 566.93 2.84 563.85 297.64 362.58 297.64 365.67 2.84"/>
+    <rect class="cls-5" x="362.83" y="2.84" width="85" height="295.03"/>
+    <rect class="cls-5" x="147.43" y="2.84" width="221.1" height="246.83"/>
   </g>
   <g id="Rooms">
-    <rect class="cls-8" x="422.36" y="8.51" width="36.85" height="104.88"/>
-    <rect class="cls-8" x="209.76" y="175.75" width="113.39" height="65.2"/>
-    <rect class="cls-8" x="8.5" y="8.51" width="42.52" height="201.26"/>
-    <rect class="cls-8" x="8.5" y="323.16" width="34.02" height="110.55"/>
-    <rect class="cls-8" x="28.35" y="323.16" width="22.68" height="28.35"/>
-    <rect class="cls-8" x="8.5" y="272.13" width="42.52" height="39.69"/>
-    <rect class="cls-8" x="8.5" y="221.11" width="42.52" height="39.69"/>
-    <rect class="cls-8" x="62.36" y="8.51" width="56.69" height="104.88"/>
-    <rect class="cls-8" x="130.39" y="8.51" width="45.35" height="104.88"/>
-    <rect class="cls-8" x="187.09" y="8.51" width="45.35" height="104.88"/>
-    <rect class="cls-8" x="243.78" y="8.51" width="34.02" height="104.88"/>
-    <rect class="cls-8" x="289.13" y="8.51" width="25.51" height="104.88"/>
-    <rect class="cls-8" x="325.98" y="8.51" width="31.18" height="104.88"/>
-    <rect class="cls-8" x="368.5" y="175.75" width="34.02" height="116.22"/>
-    <rect class="cls-8" x="413.86" y="175.75" width="28.35" height="116.22"/>
-    <rect class="cls-8" x="453.54" y="175.75" width="22.68" height="116.22"/>
-    <rect class="cls-8" x="487.56" y="175.75" width="22.68" height="116.22"/>
-    <rect class="cls-8" x="521.57" y="175.75" width="28.35" height="116.22"/>
-    <rect class="cls-8" x="561.26" y="175.75" width="31.18" height="116.22"/>
-    <rect class="cls-8" x="603.78" y="175.75" width="42.52" height="116.22"/>
-    <rect class="cls-8" x="470.55" y="8.51" width="39.69" height="104.88"/>
-    <rect class="cls-8" x="521.57" y="8.51" width="42.52" height="104.88"/>
-    <rect class="cls-8" x="575.43" y="8.51" width="31.18" height="104.88"/>
-    <rect class="cls-8" x="617.95" y="8.51" width="31.18" height="104.88"/>
-    <rect class="cls-8" x="660.47" y="8.51" width="102.05" height="104.88"/>
-    <rect class="cls-8" x="691.65" y="124.73" width="70.87" height="31.18"/>
-    <rect class="cls-8" x="691.65" y="167.25" width="70.87" height="34.02"/>
-    <rect class="cls-8" x="691.65" y="212.6" width="70.87" height="39.69"/>
-    <rect class="cls-8" x="691.65" y="263.63" width="70.87" height="36.85"/>
-    <rect class="cls-8" x="691.65" y="311.82" width="70.87" height="31.18"/>
-    <rect class="cls-8" x="691.65" y="354.34" width="70.87" height="31.18"/>
-    <rect class="cls-8" x="8.5" y="445.04" width="138.9" height="85.04"/>
-    <rect class="cls-8" x="107.72" y="175.75" width="90.71" height="65.2"/>
-    <rect class="cls-8" x="368.5" y="8.51" width="42.52" height="104.88"/>
+    <rect class="cls-7" x="422.36" y="8.51" width="36.85" height="104.88"/>
+    <rect class="cls-7" x="209.76" y="175.75" width="113.39" height="65.2"/>
+    <rect class="cls-7" x="8.5" y="8.51" width="42.52" height="201.26"/>
+    <rect class="cls-7" x="8.5" y="323.16" width="34.02" height="110.55"/>
+    <rect class="cls-7" x="28.35" y="323.16" width="22.68" height="28.35"/>
+    <rect class="cls-7" x="8.5" y="272.13" width="42.52" height="39.69"/>
+    <rect class="cls-7" x="8.5" y="221.11" width="42.52" height="39.69"/>
+    <rect class="cls-7" x="62.36" y="8.51" width="56.69" height="104.88"/>
+    <rect class="cls-7" x="130.39" y="8.51" width="45.35" height="104.88"/>
+    <rect class="cls-7" x="187.09" y="8.51" width="45.35" height="104.88"/>
+    <rect class="cls-7" x="243.78" y="8.51" width="34.02" height="104.88"/>
+    <rect class="cls-7" x="289.13" y="8.51" width="25.51" height="104.88"/>
+    <rect class="cls-7" x="325.98" y="8.51" width="31.18" height="104.88"/>
+    <rect class="cls-7" x="368.5" y="175.75" width="34.02" height="116.22"/>
+    <rect class="cls-7" x="413.86" y="175.75" width="28.35" height="116.22"/>
+    <rect class="cls-7" x="453.54" y="175.75" width="22.68" height="116.22"/>
+    <rect class="cls-7" x="487.56" y="175.75" width="22.68" height="116.22"/>
+    <rect class="cls-7" x="521.57" y="175.75" width="28.35" height="116.22"/>
+    <rect class="cls-7" x="561.26" y="175.75" width="31.18" height="116.22"/>
+    <rect class="cls-7" x="603.78" y="175.75" width="42.52" height="116.22"/>
+    <rect class="cls-7" x="470.55" y="8.51" width="39.69" height="104.88"/>
+    <rect class="cls-7" x="521.57" y="8.51" width="42.52" height="104.88"/>
+    <rect class="cls-7" x="575.43" y="8.51" width="31.18" height="104.88"/>
+    <rect class="cls-7" x="617.95" y="8.51" width="31.18" height="104.88"/>
+    <rect class="cls-7" x="660.47" y="8.51" width="102.05" height="104.88"/>
+    <rect class="cls-7" x="691.65" y="124.73" width="70.87" height="31.18"/>
+    <rect class="cls-7" x="691.65" y="167.25" width="70.87" height="34.02"/>
+    <rect class="cls-7" x="691.65" y="212.6" width="70.87" height="39.69"/>
+    <rect class="cls-7" x="691.65" y="263.63" width="70.87" height="36.85"/>
+    <rect class="cls-7" x="691.65" y="311.82" width="70.87" height="31.18"/>
+    <rect class="cls-7" x="691.65" y="354.34" width="70.87" height="31.18"/>
+    <rect class="cls-7" x="8.5" y="445.04" width="138.9" height="85.04"/>
+    <rect class="cls-7" x="107.72" y="175.75" width="90.71" height="65.2"/>
+    <rect class="cls-7" x="368.5" y="8.51" width="42.52" height="104.88"/>
   </g>
   <g id="Stairs">
-    <rect class="cls-5" x="569.79" y="394.03" width="76.5" height="76.5"/>
-    <rect class="cls-5" x="334.49" y="175.75" width="22.68" height="65.2"/>
-    <rect class="cls-5" x="107.72" y="343" width="39.69" height="31.18"/>
-    <rect class="cls-5" x="107.72" y="385.52" width="39.69" height="48.19"/>
+    <rect class="cls-4" x="569.79" y="394.03" width="76.5" height="76.5"/>
+    <rect class="cls-4" x="334.49" y="175.75" width="22.68" height="65.2"/>
+    <rect class="cls-4" x="107.72" y="343" width="39.69" height="31.18"/>
+    <rect class="cls-4" x="107.72" y="385.52" width="39.69" height="48.19"/>
   </g>
   <g id="Service">
-    <rect class="cls-7" x="702.99" y="396.86" width="59.53" height="25.51"/>
-    <rect class="cls-7" x="717.17" y="433.71" width="45.35" height="36.85"/>
-    <rect class="cls-7" x="107.72" y="297.64" width="39.69" height="34.02"/>
-    <rect class="cls-7" x="107.72" y="252.29" width="39.69" height="34.02"/>
-    <rect class="cls-7" x="569.76" y="303.31" width="76.54" height="79.37"/>
-  </g>
-  <g id="Stroke">
-    <line class="cls-2" x1="2.89" y1=".03" x2="2.89" y2="538.53"/>
-    <line class="cls-2" x1="5.69" y1="2.83" x2="770.99" y2="2.83"/>
-    <line class="cls-2" x1="5.69" y1="535.73" x2="155.89" y2="535.73"/>
-    <line class="cls-2" x1="153.09" y1="532.93" x2="153.09" y2="243.73"/>
-    <line class="cls-2" x1="768.19" y1="5.63" x2="768.19" y2="479.03"/>
-    <line class="cls-2" x1="155.89" y1="246.63" x2="365.69" y2="246.63"/>
-    <line class="cls-2" x1="362.89" y1="249.43" x2="362.89" y2="300.43"/>
-    <line class="cls-2" x1="365.69" y1="297.63" x2="447.89" y2="297.63"/>
-    <line class="cls-2" x1="564.09" y1="391.13" x2="564.09" y2="479.03"/>
-    <line class="cls-2" x1="566.89" y1="476.23" x2="765.39" y2="476.23"/>
-    <line class="cls-2" x1="765.39" y1="428.03" x2="694.49" y2="428.03"/>
-    <line class="cls-2" x1="711.49" y1="430.83" x2="711.49" y2="459.23"/>
-    <line class="cls-2" x1="697.29" y1="425.13" x2="697.29" y2="408.13"/>
-    <line class="cls-2" x1="561.29" y1="388.33" x2="598.09" y2="388.33"/>
-    <line class="cls-2" x1="598.09" y1="388.33" x2="654.79" y2="388.33"/>
-    <line class="cls-2" x1="651.99" y1="385.53" x2="651.99" y2="459.23"/>
-    <line class="cls-2" x1="447.87" y1="297.64" x2="654.8" y2="297.64"/>
-    <line class="cls-2" x1="651.97" y1="300.48" x2="651.97" y2="385.52"/>
-    <line class="cls-2" x1="765.35" y1="391.19" x2="683.15" y2="391.19"/>
-    <line class="cls-2" x1="685.98" y1="388.35" x2="685.98" y2="119.06"/>
-    <line class="cls-2" x1="362.83" y1="243.79" x2="362.83" y2="167.25"/>
-    <line class="cls-2" x1="688.82" y1="119.06" x2="187.06" y2="119.06"/>
-    <line class="cls-2" x1="564.09" y1="385.52" x2="564.09" y2="300.48"/>
-    <line class="cls-2" x1="360" y1="170.08" x2="99.21" y2="170.08"/>
-    <line class="cls-2" x1="102.05" y1="172.92" x2="102.05" y2="442.21"/>
-    <line class="cls-2" x1="53.86" y1="119.06" x2="153" y2="119.09"/>
-    <line class="cls-2" x1="153" y1="119.09" x2="266.4" y2="119.09"/>
-    <line class="cls-2" x1="280.6" y1="119.09" x2="317.5" y2="119.09"/>
-    <line class="cls-2" x1="331.6" y1="119.09" x2="360" y2="119.09"/>
-    <line class="cls-2" x1="56.7" y1="121.89" x2="56.7" y2="345.83"/>
-    <line class="cls-2" x1="48.19" y1="399.69" x2="48.19" y2="442.21"/>
-    <line class="cls-2" x1="5.67" y1="439.38" x2="45.35" y2="439.38"/>
-    <line class="cls-2" x1="104.88" y1="439.38" x2="150.24" y2="439.38"/>
-    <line class="cls-2" x1="51.02" y1="439.38" x2="99.21" y2="439.38"/>
-    <line class="cls-2" x1="765.35" y1="306.15" x2="688.82" y2="306.15"/>
-    <line class="cls-2" x1="56.69" y1="345.83" x2="56.69" y2="354.34"/>
-    <line class="cls-2" x1="48.19" y1="399.69" x2="48.19" y2="360.01"/>
-    <line class="cls-2" x1="45.35" y1="357.17" x2="59.53" y2="357.17"/>
-    <line class="cls-2" x1="99.21" y1="379.85" x2="153.11" y2="379.85"/>
-    <line class="cls-2" x1="99.21" y1="337.35" x2="155.91" y2="337.35"/>
-    <line class="cls-2" x1="99.21" y1="291.95" x2="155.91" y2="291.95"/>
-    <line class="cls-2" x1="99.21" y1="246.65" x2="155.91" y2="246.65"/>
-    <line class="cls-2" x1="204.09" y1="243.79" x2="204.09" y2="172.92"/>
-    <line class="cls-2" x1="328.82" y1="172.92" x2="328.82" y2="243.79"/>
-    <line class="cls-2" x1="365.67" y1="170.08" x2="654.8" y2="170.08"/>
-    <line class="cls-2" x1="651.97" y1="294.81" x2="651.97" y2="172.92"/>
-    <line class="cls-2" x1="53.86" y1="317.49" x2="5.67" y2="317.49"/>
-    <line class="cls-2" x1="53.86" y1="266.46" x2="5.67" y2="266.46"/>
-    <line class="cls-2" x1="53.86" y1="215.44" x2="5.67" y2="215.44"/>
-    <line class="cls-2" x1="56.69" y1="116.23" x2="56.69" y2="5.67"/>
-    <line class="cls-2" x1="124.72" y1="116.23" x2="124.72" y2="5.67"/>
-    <line class="cls-2" x1="181.42" y1="116.23" x2="181.42" y2="5.67"/>
-    <line class="cls-2" x1="238.11" y1="116.23" x2="238.11" y2="5.67"/>
-    <line class="cls-2" x1="283.46" y1="116.23" x2="283.46" y2="5.67"/>
-    <line class="cls-2" x1="362.83" y1="116.23" x2="362.83" y2="2.84"/>
-    <line class="cls-2" x1="416.69" y1="116.23" x2="416.69" y2="2.84"/>
-    <line class="cls-2" x1="464.88" y1="119.06" x2="464.88" y2="5.67"/>
-    <line class="cls-2" x1="515.91" y1="116.23" x2="515.91" y2="5.67"/>
-    <line class="cls-2" x1="569.76" y1="116.23" x2="569.76" y2="5.67"/>
-    <line class="cls-2" x1="320.31" y1="5.67" x2="320.31" y2="116.23"/>
-    <line class="cls-2" x1="612.28" y1="5.67" x2="612.28" y2="116.23"/>
-    <line class="cls-2" x1="654.8" y1="116.23" x2="654.8" y2="5.67"/>
-    <line class="cls-2" x1="688.82" y1="119.06" x2="768.19" y2="119.06"/>
-    <line class="cls-2" x1="688.82" y1="348.67" x2="765.35" y2="348.67"/>
-    <line class="cls-2" x1="688.82" y1="257.96" x2="765.35" y2="257.96"/>
-    <line class="cls-2" x1="688.82" y1="206.93" x2="768.19" y2="206.93"/>
-    <line class="cls-2" x1="688.82" y1="161.58" x2="768.19" y2="161.58"/>
-    <line class="cls-2" x1="408.19" y1="172.92" x2="408.19" y2="297.64"/>
-    <line class="cls-2" x1="447.87" y1="172.92" x2="447.87" y2="294.81"/>
-    <line class="cls-2" x1="481.89" y1="172.92" x2="481.89" y2="297.64"/>
-    <line class="cls-2" x1="515.91" y1="172.92" x2="515.91" y2="294.81"/>
-    <line class="cls-2" x1="555.59" y1="172.92" x2="555.59" y2="294.81"/>
-    <line class="cls-2" x1="598.11" y1="172.92" x2="598.11" y2="294.81"/>
+    <rect class="cls-6" x="702.99" y="396.86" width="59.53" height="25.51"/>
+    <rect class="cls-6" x="717.17" y="433.71" width="45.35" height="36.85"/>
+    <rect class="cls-6" x="107.72" y="297.64" width="39.69" height="34.02"/>
+    <rect class="cls-6" x="107.72" y="252.29" width="39.69" height="34.02"/>
+    <rect class="cls-6" x="569.76" y="303.31" width="76.54" height="79.37"/>
   </g>
   <g id="RoomNumbers">
     <g id="RoomNumbers-2" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(592.44 345.83) scale(.9 1)"><tspan x="0" y="0">530</tspan></text>
+      <text class="cls-3" transform="translate(592.44 345.83) scale(.9 1)"><tspan x="0" y="0">530</tspan></text>
     </g>
     <g id="RoomNumbers-3" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(252.28 215.44) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-15" x="10.79" y="0">2</tspan><tspan class="cls-17" x="21.15" y="0">1</tspan></text>
+      <text class="cls-3" transform="translate(252.28 215.44) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-14" x="10.79" y="0">2</tspan><tspan class="cls-16" x="21.15" y="0">1</tspan></text>
     </g>
     <g id="RoomNumbers-4" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(289.13 70.87) scale(.9 1)"><tspan class="cls-12" x="0" y="0">5</tspan><tspan x="10.33" y="0">15</tspan></text>
+      <text class="cls-3" transform="translate(289.13 70.87) scale(.9 1)"><tspan class="cls-11" x="0" y="0">5</tspan><tspan x="10.33" y="0">15</tspan></text>
     </g>
     <g id="RoomNumbers-5" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(246.61 70.87) scale(.9 1)"><tspan class="cls-12" x="0" y="0">5</tspan><tspan class="cls-18" x="10.33" y="0">1</tspan><tspan x="20.86" y="0">6</tspan></text>
+      <text class="cls-3" transform="translate(246.61 70.87) scale(.9 1)"><tspan class="cls-11" x="0" y="0">5</tspan><tspan class="cls-17" x="10.33" y="0">1</tspan><tspan x="20.86" y="0">6</tspan></text>
     </g>
     <g id="RoomNumbers-6" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(138.9 70.87) scale(.9 1)"><tspan class="cls-12" x="0" y="0">5</tspan><tspan class="cls-10" x="10.33" y="0">1</tspan><tspan x="21.34" y="0">8</tspan></text>
+      <text class="cls-3" transform="translate(138.9 70.87) scale(.9 1)"><tspan class="cls-11" x="0" y="0">5</tspan><tspan class="cls-9" x="10.33" y="0">1</tspan><tspan x="21.34" y="0">8</tspan></text>
     </g>
     <g id="RoomNumbers-7" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(73.7 70.87) scale(.9 1)"><tspan class="cls-12" x="0" y="0">5</tspan><tspan x="10.33" y="0">19</tspan></text>
+      <text class="cls-3" transform="translate(73.7 70.87) scale(.9 1)"><tspan class="cls-11" x="0" y="0">5</tspan><tspan x="10.33" y="0">19</tspan></text>
     </g>
     <g id="RoomNumbers-8" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(14.17 147.41) scale(.9 1)"><tspan x="0" y="0">535</tspan></text>
+      <text class="cls-3" transform="translate(14.17 147.41) scale(.9 1)"><tspan x="0" y="0">535</tspan></text>
     </g>
     <g id="RoomNumbers-9" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(17.01 297.64) scale(.9 1)"><tspan x="0" y="0">533</tspan></text>
+      <text class="cls-3" transform="translate(17.01 297.64) scale(.9 1)"><tspan x="0" y="0">533</tspan></text>
     </g>
     <g id="RoomNumbers-10" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(11.34 385.52) scale(.9 1)"><tspan x="0" y="0">532</tspan></text>
+      <text class="cls-3" transform="translate(11.34 385.52) scale(.9 1)"><tspan x="0" y="0">532</tspan></text>
     </g>
     <g id="RoomNumbers-11" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(62.36 496.07) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-20" x="10.79" y="0">3</tspan><tspan x="21.05" y="0">1</tspan></text>
+      <text class="cls-3" transform="translate(62.36 496.07) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-19" x="10.79" y="0">3</tspan><tspan x="21.05" y="0">1</tspan></text>
     </g>
     <g id="RoomNumbers-12" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(374.17 70.87) scale(.9 1)"><tspan class="cls-12" x="0" y="0">5</tspan><tspan class="cls-19" x="10.33" y="0">1</tspan><tspan x="21.23" y="0">3</tspan></text>
+      <text class="cls-3" transform="translate(374.17 70.87) scale(.9 1)"><tspan class="cls-11" x="0" y="0">5</tspan><tspan class="cls-18" x="10.33" y="0">1</tspan><tspan x="21.23" y="0">3</tspan></text>
     </g>
     <g id="RoomNumbers-13" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(192.76 70.87) scale(.9 1)"><tspan class="cls-12" x="0" y="0">5</tspan><tspan class="cls-11" x="10.33" y="0">1</tspan><tspan x="20.03" y="0">7</tspan></text>
+      <text class="cls-3" transform="translate(192.76 70.87) scale(.9 1)"><tspan class="cls-11" x="0" y="0">5</tspan><tspan class="cls-10" x="10.33" y="0">1</tspan><tspan x="20.03" y="0">7</tspan></text>
     </g>
     <g id="RoomNumbers-14" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(328.82 70.87) scale(.9 1)"><tspan class="cls-12" x="0" y="0">5</tspan><tspan class="cls-14" x="10.33" y="0">1</tspan><tspan x="21.03" y="0">4</tspan></text>
+      <text class="cls-3" transform="translate(328.82 70.87) scale(.9 1)"><tspan class="cls-11" x="0" y="0">5</tspan><tspan class="cls-13" x="10.33" y="0">1</tspan><tspan x="21.03" y="0">4</tspan></text>
     </g>
     <g id="RoomNumbers-15" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(425.2 70.87) scale(.9 1)"><tspan class="cls-12" x="0" y="0">5</tspan><tspan class="cls-10" x="10.33" y="0">1</tspan><tspan x="21.34" y="0">2</tspan></text>
+      <text class="cls-3" transform="translate(425.2 70.87) scale(.9 1)"><tspan class="cls-11" x="0" y="0">5</tspan><tspan class="cls-9" x="10.33" y="0">1</tspan><tspan x="21.34" y="0">2</tspan></text>
     </g>
     <g id="RoomNumbers-16" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(476.22 70.87) scale(.9 1)"><tspan class="cls-12" x="0" y="0">5</tspan><tspan x="10.33" y="0">11</tspan></text>
+      <text class="cls-3" transform="translate(476.22 70.87) scale(.9 1)"><tspan class="cls-11" x="0" y="0">5</tspan><tspan x="10.33" y="0">11</tspan></text>
     </g>
     <g id="RoomNumbers-17" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(527.24 70.87) scale(.9 1)"><tspan class="cls-12" x="0" y="0">5</tspan><tspan class="cls-13" x="10.33" y="0">1</tspan><tspan x="20.94" y="0">0</tspan></text>
+      <text class="cls-3" transform="translate(527.24 70.87) scale(.9 1)"><tspan class="cls-11" x="0" y="0">5</tspan><tspan class="cls-12" x="10.33" y="0">1</tspan><tspan x="20.94" y="0">0</tspan></text>
     </g>
     <g id="RoomNumbers-18" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(578.27 70.87) scale(.9 1)"><tspan x="0" y="0">509</tspan></text>
+      <text class="cls-3" transform="translate(578.27 70.87) scale(.9 1)"><tspan x="0" y="0">509</tspan></text>
     </g>
     <g id="RoomNumbers-19" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(620.79 70.87) scale(.9 1)"><tspan x="0" y="0">508</tspan></text>
+      <text class="cls-3" transform="translate(620.79 70.87) scale(.9 1)"><tspan x="0" y="0">508</tspan></text>
     </g>
     <g id="RoomNumbers-20" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(697.32 70.87) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-16" x="10.79" y="0">0</tspan><tspan class="cls-17" x="20.98" y="0">7</tspan></text>
+      <text class="cls-3" transform="translate(697.32 70.87) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-15" x="10.79" y="0">0</tspan><tspan class="cls-16" x="20.98" y="0">7</tspan></text>
     </g>
     <g id="RoomNumbers-21" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(708.66 147.41) scale(.9 1)"><tspan x="0" y="0">506</tspan></text>
+      <text class="cls-3" transform="translate(708.66 147.41) scale(.9 1)"><tspan x="0" y="0">506</tspan></text>
     </g>
     <g id="RoomNumbers-22" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(708.66 192.76) scale(.9 1)"><tspan x="0" y="0">505</tspan></text>
+      <text class="cls-3" transform="translate(708.66 192.76) scale(.9 1)"><tspan x="0" y="0">505</tspan></text>
     </g>
     <g id="RoomNumbers-23" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(708.66 238.12) scale(.9 1)"><tspan x="0" y="0">504</tspan></text>
+      <text class="cls-3" transform="translate(708.66 238.12) scale(.9 1)"><tspan x="0" y="0">504</tspan></text>
     </g>
     <g id="RoomNumbers-24" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(708.66 289.14) scale(.9 1)"><tspan x="0" y="0">503</tspan></text>
+      <text class="cls-3" transform="translate(708.66 289.14) scale(.9 1)"><tspan x="0" y="0">503</tspan></text>
     </g>
     <g id="RoomNumbers-25" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(708.66 331.66) scale(.9 1)"><tspan x="0" y="0">502</tspan></text>
+      <text class="cls-3" transform="translate(708.66 331.66) scale(.9 1)"><tspan x="0" y="0">502</tspan></text>
     </g>
     <g id="RoomNumbers-26" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(708.66 374.18) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-12" x="10.79" y="0">0</tspan><tspan x="21.12" y="0">1</tspan></text>
+      <text class="cls-3" transform="translate(708.66 374.18) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-11" x="10.79" y="0">0</tspan><tspan x="21.12" y="0">1</tspan></text>
     </g>
     <g id="RoomNumbers-27" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(609.45 238.12) scale(.9 1)"><tspan x="0" y="0">528</tspan></text>
+      <text class="cls-3" transform="translate(609.45 238.12) scale(.9 1)"><tspan x="0" y="0">528</tspan></text>
     </g>
     <g id="RoomNumbers-28" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(561.26 238.12) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-3" x="10.79" y="0">2</tspan><tspan class="cls-17" x="21.08" y="0">7</tspan></text>
+      <text class="cls-3" transform="translate(561.26 238.12) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-2" x="10.79" y="0">2</tspan><tspan class="cls-16" x="21.08" y="0">7</tspan></text>
     </g>
     <g id="RoomNumbers-29" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(521.57 238.12) scale(.9 1)"><tspan x="0" y="0">526</tspan></text>
+      <text class="cls-3" transform="translate(521.57 238.12) scale(.9 1)"><tspan x="0" y="0">526</tspan></text>
     </g>
     <g id="RoomNumbers-30" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(484.72 238.12) scale(.9 1)"><tspan x="0" y="0">525</tspan></text>
+      <text class="cls-3" transform="translate(484.72 238.12) scale(.9 1)"><tspan x="0" y="0">525</tspan></text>
     </g>
     <g id="RoomNumbers-31" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(450.71 238.12) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-9" x="10.79" y="0">2</tspan><tspan x="21.07" y="0">4</tspan></text>
+      <text class="cls-3" transform="translate(450.71 238.12) scale(.9 1)"><tspan x="0" y="0">5</tspan><tspan class="cls-8" x="10.79" y="0">2</tspan><tspan x="21.07" y="0">4</tspan></text>
     </g>
     <g id="RoomNumbers-32" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(413.86 238.12) scale(.9 1)"><tspan x="0" y="0">523</tspan></text>
+      <text class="cls-3" transform="translate(413.86 238.12) scale(.9 1)"><tspan x="0" y="0">523</tspan></text>
     </g>
     <g id="RoomNumbers-33" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(371.34 238.12) scale(.9 1)"><tspan x="0" y="0">522</tspan></text>
+      <text class="cls-3" transform="translate(371.34 238.12) scale(.9 1)"><tspan x="0" y="0">522</tspan></text>
     </g>
     <g id="RoomNumbers-34" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(17.01 246.62) scale(.9 1)"><tspan x="0" y="0">534</tspan></text>
+      <text class="cls-3" transform="translate(17.01 246.62) scale(.9 1)"><tspan x="0" y="0">534</tspan></text>
     </g>
     <g id="RoomNumbers-35" data-name="RoomNumbers">
-      <text class="cls-4" transform="translate(138.9 215.44) scale(.9 1)"><tspan x="0" y="0">520</tspan></text>
+      <text class="cls-3" transform="translate(138.9 215.44) scale(.9 1)"><tspan x="0" y="0">520</tspan></text>
     </g>
   </g>
+  <g id="Png">
+    <use transform="translate(725.67 396.86) scale(.13)" xlink:href="#image-2"/>
+    <use transform="translate(725.67 439.38) scale(.13)" xlink:href="#image-2"/>
+    <use transform="translate(331.65 192.76) scale(.05)" xlink:href="#image"/>
+    <use transform="translate(592.44 416.7) scale(.05)" xlink:href="#image"/>
+    <use transform="translate(113.39 345.83) scale(.05)" xlink:href="#image"/>
+    <use transform="translate(113.39 394.02) scale(.05)" xlink:href="#image"/>
+    <use transform="translate(113.39 255.12) scale(.13)" xlink:href="#image-2"/>
+    <use transform="translate(113.39 300.48) scale(.13)" xlink:href="#image-2"/>
+  </g>
   <g id="Doors">
-    <line id="Door301" class="cls-1" x1="266.46" y1="170.08" x2="277.8" y2="170.08"/>
-    <line id="DoorStairs" class="cls-1" x1="340.16" y1="170.08" x2="351.5" y2="170.08"/>
-    <line id="Door303" class="cls-1" x1="337.32" y1="119.06" x2="348.66" y2="119.06"/>
-    <line id="Door317" class="cls-1" x1="294.8" y1="119.06" x2="306.14" y2="119.06"/>
-    <line id="Door318" class="cls-1" x1="255.12" y1="119.06" x2="266.46" y2="119.06"/>
-    <line id="Door319" class="cls-1" x1="195.59" y1="119.06" x2="206.93" y2="119.06"/>
-    <line id="Door320" class="cls-1" x1="130.39" y1="119.06" x2="141.73" y2="119.06"/>
-    <line id="Door321" class="cls-1" x1="76.54" y1="119.06" x2="87.87" y2="119.06"/>
-    <line id="Door304" class="cls-1" x1="379.84" y1="170.08" x2="391.18" y2="170.08"/>
-    <line id="DoorStairs-2" data-name="DoorStairs" class="cls-1" x1="651.97" y1="459.22" x2="651.97" y2="473.39"/>
-    <line id="DoorWC" class="cls-1" x1="711.5" y1="459.22" x2="711.5" y2="473.39"/>
-    <line id="DoorWC-2" data-name="DoorWC" class="cls-1" x1="697.32" y1="394.02" x2="697.32" y2="408.19"/>
-    <line id="DoorStairs-3" data-name="DoorStairs" class="cls-1" x1="102.05" y1="402.53" x2="102.05" y2="416.7"/>
-    <line id="DoorStairs-4" data-name="DoorStairs" class="cls-1" x1="102.05" y1="351.5" x2="102.05" y2="365.67"/>
-    <line id="DoorWC-3" data-name="DoorWC" class="cls-1" x1="102.05" y1="306.15" x2="102.05" y2="320.32"/>
-    <line id="DoorWC-4" data-name="DoorWC" class="cls-1" x1="102.05" y1="260.79" x2="102.05" y2="274.97"/>
-    <line id="Door324" class="cls-1" x1="56.69" y1="272.13" x2="56.69" y2="286.3"/>
-    <line id="Door323" class="cls-1" x1="56.69" y1="175.75" x2="56.69" y2="189.93"/>
-    <line id="Door325" class="cls-1" x1="48.19" y1="388.35" x2="48.19" y2="402.53"/>
-    <line id="Door326" class="cls-1" x1="65.2" y1="439.38" x2="79.37" y2="439.38"/>
-    <line id="Door322" class="cls-1" x1="56.69" y1="121.9" x2="56.69" y2="136.07"/>
-    <line id="Door315" class="cls-1" x1="685.98" y1="266.46" x2="685.98" y2="280.64"/>
-    <line id="Door316" class="cls-1" x1="685.98" y1="362.84" x2="685.98" y2="377.01"/>
-    <line id="Door324-2" data-name="Door324" class="cls-1" x1="56.69" y1="232.45" x2="56.69" y2="246.62"/>
-    <line id="Door324-3" data-name="Door324" class="cls-1" x1="651.97" y1="337.33" x2="651.97" y2="351.5"/>
-    <line id="Door324-4" data-name="Door324" class="cls-1" x1="685.98" y1="221.11" x2="685.98" y2="235.28"/>
-    <line id="Door316-2" data-name="Door316" class="cls-1" x1="685.98" y1="320.32" x2="685.98" y2="334.49"/>
-    <line id="Door316-3" data-name="Door316" class="cls-1" x1="685.98" y1="178.59" x2="685.98" y2="192.76"/>
-    <line id="Door316-4" data-name="Door316" class="cls-1" x1="685.98" y1="133.23" x2="685.98" y2="147.41"/>
-    <line id="Door304-2" data-name="Door304" class="cls-1" x1="422.36" y1="170.08" x2="433.7" y2="170.08"/>
-    <line id="Door304-3" data-name="Door304" class="cls-1" x1="459.21" y1="170.08" x2="470.55" y2="170.08"/>
-    <line id="Door304-4" data-name="Door304" class="cls-1" x1="493.23" y1="170.08" x2="504.57" y2="170.08"/>
-    <line id="Door304-5" data-name="Door304" class="cls-1" x1="530.08" y1="170.08" x2="541.42" y2="170.08"/>
-    <line id="Door304-6" data-name="Door304" class="cls-1" x1="572.6" y1="170.08" x2="583.94" y2="170.08"/>
-    <line id="Door304-7" data-name="Door304" class="cls-1" x1="620.79" y1="170.08" x2="632.13" y2="170.08"/>
-    <line id="Door304-8" data-name="Door304" class="cls-1" x1="382.68" y1="119.06" x2="394.02" y2="119.06"/>
-    <line id="Door304-9" data-name="Door304" class="cls-1" x1="433.7" y1="119.06" x2="445.04" y2="119.06"/>
-    <line id="Door304-10" data-name="Door304" class="cls-1" x1="484.72" y1="119.06" x2="496.06" y2="119.06"/>
-    <line id="Door304-11" data-name="Door304" class="cls-1" x1="535.75" y1="119.06" x2="547.09" y2="119.06"/>
-    <line id="Door304-12" data-name="Door304" class="cls-1" x1="586.77" y1="119.06" x2="598.11" y2="119.06"/>
-    <line id="Door304-13" data-name="Door304" class="cls-1" x1="629.29" y1="119.06" x2="640.63" y2="119.06"/>
-    <line id="Door304-14" data-name="Door304" class="cls-1" x1="666.14" y1="119.06" x2="677.48" y2="119.06"/>
-    <line id="Door304-15" data-name="Door304" class="cls-1" x1="116.22" y1="170.08" x2="127.56" y2="170.08"/>
+    <line id="_521" data-name="521" class="cls-1" x1="266.46" y1="170.08" x2="277.8" y2="170.08"/>
+    <line id="_514" data-name="514" class="cls-1" x1="337.32" y1="119.06" x2="348.66" y2="119.06"/>
+    <line id="_515" data-name="515" class="cls-1" x1="294.8" y1="119.06" x2="306.14" y2="119.06"/>
+    <line id="_516" data-name="516" class="cls-1" x1="255.12" y1="119.06" x2="266.46" y2="119.06"/>
+    <line id="_517" data-name="517" class="cls-1" x1="195.59" y1="119.06" x2="206.93" y2="119.06"/>
+    <line id="_518" data-name="518" class="cls-1" x1="130.39" y1="119.06" x2="141.73" y2="119.06"/>
+    <line id="_519" data-name="519" class="cls-1" x1="76.54" y1="119.06" x2="87.87" y2="119.06"/>
+    <line id="_522" data-name="522" class="cls-1" x1="379.84" y1="170.08" x2="391.18" y2="170.08"/>
+    <line id="_Туалет" data-name="Туалет" class="cls-1" x1="711.5" y1="459.22" x2="711.5" y2="473.39"/>
+    <line id="_Туалет-2" data-name="Туалет" class="cls-1" x1="697.32" y1="394.02" x2="697.32" y2="408.19"/>
+    <line id="_Туалет-3" data-name="Туалет" class="cls-1" x1="102.05" y1="306.15" x2="102.05" y2="320.32"/>
+    <line id="_Туалет-4" data-name="Туалет" class="cls-1" x1="102.05" y1="260.79" x2="102.05" y2="274.97"/>
+    <line id="_533" data-name="533" class="cls-1" x1="56.69" y1="272.13" x2="56.69" y2="286.3"/>
+    <line id="_535" data-name="535" class="cls-1" x1="56.69" y1="175.75" x2="56.69" y2="189.93"/>
+    <line id="_532" data-name="532" class="cls-1" x1="48.19" y1="388.35" x2="48.19" y2="402.53"/>
+    <line id="_531" data-name="531" class="cls-1" x1="65.2" y1="439.38" x2="79.37" y2="439.38"/>
+    <line id="_535-2" data-name="535" class="cls-1" x1="56.69" y1="121.9" x2="56.69" y2="136.07"/>
+    <line id="_503" data-name="503" class="cls-1" x1="685.98" y1="266.46" x2="685.98" y2="280.64"/>
+    <line id="_501" data-name="501" class="cls-1" x1="685.98" y1="362.84" x2="685.98" y2="377.01"/>
+    <line id="_534" data-name="534" class="cls-1" x1="56.69" y1="232.45" x2="56.69" y2="246.62"/>
+    <line id="_530" data-name="530" class="cls-1" x1="651.97" y1="337.33" x2="651.97" y2="351.5"/>
+    <line id="_504" data-name="504" class="cls-1" x1="685.98" y1="221.11" x2="685.98" y2="235.28"/>
+    <line id="_502" data-name="502" class="cls-1" x1="685.98" y1="320.32" x2="685.98" y2="334.49"/>
+    <line id="_505" data-name="505" class="cls-1" x1="685.98" y1="178.59" x2="685.98" y2="192.76"/>
+    <line id="_506" data-name="506" class="cls-1" x1="685.98" y1="133.23" x2="685.98" y2="147.41"/>
+    <line id="_523" data-name="523" class="cls-1" x1="422.36" y1="170.08" x2="433.7" y2="170.08"/>
+    <line id="_524" data-name="524" class="cls-1" x1="459.21" y1="170.08" x2="470.55" y2="170.08"/>
+    <line id="_525" data-name="525" class="cls-1" x1="493.23" y1="170.08" x2="504.57" y2="170.08"/>
+    <line id="_526" data-name="526" class="cls-1" x1="530.08" y1="170.08" x2="541.42" y2="170.08"/>
+    <line id="_527" data-name="527" class="cls-1" x1="572.6" y1="170.08" x2="583.94" y2="170.08"/>
+    <line id="_528" data-name="528" class="cls-1" x1="620.79" y1="170.08" x2="632.13" y2="170.08"/>
+    <line id="_513" data-name="513" class="cls-1" x1="382.68" y1="119.06" x2="394.02" y2="119.06"/>
+    <line id="_512" data-name="512" class="cls-1" x1="433.7" y1="119.06" x2="445.04" y2="119.06"/>
+    <line id="_511" data-name="511" class="cls-1" x1="484.72" y1="119.06" x2="496.06" y2="119.06"/>
+    <line id="_510" data-name="510" class="cls-1" x1="535.75" y1="119.06" x2="547.09" y2="119.06"/>
+    <line id="_509" data-name="509" class="cls-1" x1="586.77" y1="119.06" x2="598.11" y2="119.06"/>
+    <line id="_508" data-name="508" class="cls-1" x1="629.29" y1="119.06" x2="640.63" y2="119.06"/>
+    <line id="_507" data-name="507" class="cls-1" x1="666.14" y1="119.06" x2="677.48" y2="119.06"/>
+    <line id="_520" data-name="520" class="cls-1" x1="116.22" y1="170.08" x2="127.56" y2="170.08"/>
   </g>
   <g id="pathdots">
-    <circle class="cls-6" cx="75.12" cy="406.78" r="4.25"/>
-    <circle class="cls-6" cx="75.12" cy="358.59" r="4.25"/>
-    <circle class="cls-6" cx="76.54" cy="313.23" r="4.25"/>
-    <circle class="cls-6" cx="77.95" cy="276.38" r="4.25"/>
-    <circle class="cls-6" cx="77.95" cy="239.53" r="4.25"/>
-    <circle class="cls-6" cx="77.95" cy="182.84" r="4.25"/>
-    <circle class="cls-6" cx="77.95" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="128.98" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="199.84" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="262.2" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="301.89" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="344.41" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="386.93" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="433.7" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="466.3" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="494.65" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="534.33" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="588.19" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="633.54" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="667.56" cy="140.32" r="4.25"/>
-    <circle class="cls-6" cx="667.56" cy="188.51" r="4.25"/>
-    <circle class="cls-6" cx="667.56" cy="228.19" r="4.25"/>
-    <circle class="cls-6" cx="667.56" cy="273.55" r="4.25"/>
-    <circle class="cls-6" cx="667.56" cy="327.41" r="4.25"/>
-    <circle class="cls-6" cx="667.56" cy="369.93" r="4.25"/>
-    <circle class="cls-6" cx="667.56" cy="401.11" r="4.25"/>
-    <circle class="cls-6" cx="667.56" cy="463.47" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="418.12" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="401.11" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="384.1" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="276.38" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="231.03" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="177.17" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="94.96" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="180" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="265.04" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="299.06" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="316.06" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="384.1" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="435.12" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="469.13" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="503.15" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="520.16" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="588.19" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="622.21" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="656.22" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="188.51" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="228.19" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="273.55" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="327.41" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="369.93" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="401.11" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="463.47" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="367.09" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="350.08" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="333.08" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="316.07" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="299.06" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="287.72" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="259.38" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="245.2" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="214.02" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="199.85" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="188.51" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="160.16" r="4.25"/>
+    <circle class="cls-5" cx="77.95" cy="151.66" r="4.25"/>
+    <circle class="cls-5" cx="111.97" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="128.98" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="145.98" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="162.99" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="197.01" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="214.02" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="231.02" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="248.03" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="282.05" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="333.07" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="350.08" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="367.09" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="401.1" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="418.11" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="452.13" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="486.14" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="537.17" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="554.17" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="571.18" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="605.2" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="639.21" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="143.15" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="157.33" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="174.34" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="205.52" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="216.86" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="245.2" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="259.38" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="287.72" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="304.73" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="316.07" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="344.41" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="358.59" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="386.93" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="418.12" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="435.12" r="4.25"/>
+    <circle class="cls-5" cx="667.56" cy="452.13" r="4.25"/>
+    <circle id="stair-marker" class="cls-5" cx="653.63" cy="466.06" r="4.5"/>
+    <circle id="stair-marker-2" data-name="stair-marker" class="cls-5" cx="344.66" cy="168.91" r="4.5"/>
+    <circle id="stair-marker-3" data-name="stair-marker" class="cls-5" cx="100.88" cy="409.36" r="4.5"/>
+    <circle id="stair-marker-4" data-name="stair-marker" class="cls-5" cx="100.88" cy="358.84" r="4.5"/>
   </g>
 </svg>
